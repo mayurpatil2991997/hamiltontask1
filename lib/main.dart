@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hamilton1/screens/album/album_screen.dart';
+import 'package:hamilton1/screens/user/user_screen.dart';
 import 'package:sizer/sizer.dart';
 
 void main() {
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: const AlbumScreen(),
+        home: const UserScreen(),
       );
     });
   }
