@@ -91,7 +91,7 @@ class _UserScreenState extends State<UserScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text(editUserDetails),
+          title: const Text(addUserDetails),
           content: Form(
             key: userController.formKey,
             child: Column(

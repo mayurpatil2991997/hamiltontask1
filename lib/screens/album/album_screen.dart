@@ -3,9 +3,12 @@ import 'package:get/get.dart';
 import 'package:hamilton1/controllers/album/album_controller.dart';
 import 'package:hamilton1/core/strings.dart';
 import 'package:hamilton1/core/theme/app_color.dart';
+import 'package:hamilton1/screens/album/edit_album_screen.dart';
 import 'package:hamilton1/screens/photo/photo_screen.dart';
+import 'package:hamilton1/utils/validator.dart';
 import 'package:hamilton1/widgets/appBar/appBar.dart';
 import 'package:hamilton1/widgets/container/container_widget.dart';
+import 'package:hamilton1/widgets/text_field/text_field_widget.dart';
 import 'package:sizer/sizer.dart';
 
 class AlbumScreen extends StatefulWidget {
@@ -43,7 +46,9 @@ class _AlbumScreenState extends State<AlbumScreen> {
         ),
         actions: [
           InkWell(
-            onTap: () {},
+            onTap: () {
+              addAlbumWidget();
+            },
             child: Padding(
               padding: EdgeInsets.only(right: 4.w),
               child: const Icon(
@@ -78,11 +83,60 @@ class _AlbumScreenState extends State<AlbumScreen> {
                 onTap: () {
                   Get.to(() => PhotoScreen(albumId: album.id!,));
                 },
+                onTapEdit: () {
+                  Get.to(() => EditAlbumScreen(album: album,));
+                },
+                onTapDelete: () {
+                  albumController.deleteAlbum(album.id!);
+                },
               );
             },
           );
         }
       }),
+    );
+  }
+  Future addAlbumWidget() {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text(addAlbumDetails),
+          content: Form(
+            key: albumController.formKey,
+            child: Column(
+              children: [
+                CustomTextField(
+                    hintText: enterTitle,
+                    controller: albumController.titleController,
+                    validator: (String? value) =>
+                        Validators.validateText(value!.trim(),enterTitle),
+                    keyboardType: null,
+                ),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Cancel'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: const Text('Submit'),
+              onPressed: () {
+                if (albumController.formKey.currentState!.validate()) {
+                  albumController.addAlbum(
+                    albumController.titleController.text,
+                  );
+                  Get.back();
+                }
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }
