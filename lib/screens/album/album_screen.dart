@@ -6,6 +6,7 @@ import 'package:hamilton1/core/theme/app_color.dart';
 import 'package:hamilton1/screens/photo/photo_screen.dart';
 import 'package:hamilton1/widgets/appBar/appBar.dart';
 import 'package:hamilton1/widgets/container/container_widget.dart';
+import 'package:sizer/sizer.dart';
 
 class AlbumScreen extends StatefulWidget {
   final int userId;
@@ -40,7 +41,19 @@ class _AlbumScreenState extends State<AlbumScreen> {
             color: AppColor.whiteColor,
           ),
         ),
-        actions: const [],
+        actions: [
+          InkWell(
+            onTap: () {},
+            child: Padding(
+              padding: EdgeInsets.only(right: 4.w),
+              child: const Icon(
+                Icons.add,
+                size: 32,
+                color: AppColor.whiteColor,
+              ),
+            ),
+          )
+        ],
       ),
       body: Obx(() {
         if (albumController.isLoading.value) {
@@ -61,6 +74,7 @@ class _AlbumScreenState extends State<AlbumScreen> {
                 title: album.title ?? "N/A",
                 userId: album.userId.toString() ?? "N/A",
                 albumId: album.id.toString() ?? "N/A",
+                showEditIcon: true,
                 onTap: () {
                   Get.to(() => PhotoScreen(albumId: album.id!,));
                 },

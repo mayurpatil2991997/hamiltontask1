@@ -12,3 +12,7 @@ const String comNameText = "Company Name";
 const String userIdText = "User Id";
 const String albumIdText = "Album Id";
 const String photoIdText = "Photo Id";
+const String editUserDetails = "Edit User Details";
+const String enterName = "Enter Name";
+const String enterUserName = "Enter UserName";
+const String enterEmail = "Enter Email";

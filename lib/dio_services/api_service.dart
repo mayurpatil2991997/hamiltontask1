@@ -10,6 +10,20 @@ class ApiService {
     };
   }
 
+  Future<Response> postDataWithForm(Map<String, dynamic> formData, String path,
+      {Map<String, dynamic>? headers}) async {
+    try {
+      final response = await _dio.patch(
+        AppConstant.baseUrl + path,
+        options: Options(headers: headers),
+        data: FormData.fromMap(formData),
+      );
+      return response;
+    } catch (error) {
+      throw Exception('API Request Error: $error');
+    }
+  }
+
   Future<Response> patchDataWithForm(Map<String, dynamic> formData, String path,
       {Map<String, dynamic>? headers}) async {
     try {

@@ -4,8 +4,11 @@ import 'package:hamilton1/controllers/user/user_controller.dart';
 import 'package:hamilton1/core/strings.dart';
 import 'package:hamilton1/core/theme/app_color.dart';
 import 'package:hamilton1/screens/album/album_screen.dart';
+import 'package:hamilton1/utils/validator.dart';
 import 'package:hamilton1/widgets/appBar/appBar.dart';
 import 'package:hamilton1/widgets/container/container_widget.dart';
+import 'package:hamilton1/widgets/text_field/text_field_widget.dart';
+import 'package:sizer/sizer.dart';
 
 class UserScreen extends StatefulWidget {
   const UserScreen({super.key});
@@ -23,11 +26,26 @@ class _UserScreenState extends State<UserScreen> {
       appBar: CustomAppBar(
         title: user,
         backgroundColor: AppColor.primaryColor,
-        actions: const [],
+        actions: [
+          InkWell(
+            onTap: () {
+              addUserWidget();
+            },
+            child: Padding(
+              padding: EdgeInsets.only(right: 4.w),
+              child: const Icon(
+                Icons.add,
+                size: 32,
+                color: AppColor.whiteColor,
+              ),
+            ),
+          )
+        ],
       ),
       body: Obx(() {
         if (userController.isLoading.value) {
-          return const Center(child: CircularProgressIndicator(
+          return const Center(
+              child: CircularProgressIndicator(
             color: AppColor.primaryColor,
           ));
         } else if (userController.userListModel.isEmpty) {
@@ -47,14 +65,80 @@ class _UserScreenState extends State<UserScreen> {
                 companyName: user.company?.name ?? "N/A",
                 email: user.email ?? "N/A",
                 website: user.website ?? "N/A",
+                showEditIcon: true,
                 onTap: () {
-                  Get.to(() => AlbumScreen(userId: user.id!,));
+                  Get.to(() => AlbumScreen(
+                        userId: user.id!,
+                      ));
                 },
               );
             },
           );
         }
       }),
+    );
+  }
+
+  Future addUserWidget() {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text(editUserDetails),
+          content: Form(
+            key: userController.formKey,
+            child: Column(
+              children: [
+                CustomTextField(
+                    hintText: enterName,
+                    controller: userController.nameController,
+                    validator: (String? value) =>
+                        Validators.validateText(value!.trim(),enterName),
+                    keyboardType: null),
+                SizedBox(
+                  height: 2.h,
+                ),
+                CustomTextField(
+                    hintText: enterUserName,
+                    controller: userController.userNameController,
+                    validator: (String? value) =>
+                        Validators.validateText(value!.trim(),enterUserName),
+                    keyboardType: null),
+                SizedBox(
+                  height: 2.h,
+                ),
+                CustomTextField(
+                    hintText: enterEmail,
+                    controller: userController.emailController,
+                    validator: (String? value) =>
+                        Validators.validateEmail(value!.trim()),
+                    keyboardType: null),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Cancel'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: const Text('Submit'),
+              onPressed: () {
+                if (userController.formKey.currentState!.validate()) {
+                  userController.addUser(
+                    userController.nameController.text,
+                    userController.userNameController.text,
+                    userController.emailController.text,
+                  );
+                  Get.back();
+                }
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }
