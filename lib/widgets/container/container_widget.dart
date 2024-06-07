@@ -20,6 +20,8 @@ class ContainerWidget extends StatelessWidget {
   final String? image;
   final bool? showEditIcon;
   final Function()? onTap;
+  final Function()? onTapEdit;
+  final Function()? onTapDelete;
 
   const ContainerWidget(
       {this.name,
@@ -34,7 +36,10 @@ class ContainerWidget extends StatelessWidget {
       this.photoId,
       this.image,
       this.showEditIcon = false,
-      this.onTap});
+      this.onTap,
+      this.onTapEdit,
+      this.onTapDelete,
+      });
 
   @override
   Widget build(BuildContext context) {
@@ -306,7 +311,7 @@ class ContainerWidget extends StatelessWidget {
                       children: [
                         showEditIcon == true
                             ? InkWell(
-                                onTap: () {},
+                                onTap: onTapEdit,
                                 child: const Icon(
                                   Icons.edit,
                                   size: 28,
@@ -314,7 +319,7 @@ class ContainerWidget extends StatelessWidget {
                               )
                             : const SizedBox(),
                         InkWell(
-                          onTap: () {},
+                          onTap: onTapDelete,
                           child: const Icon(
                             Icons.delete,
                             size: 28,

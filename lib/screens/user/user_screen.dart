@@ -4,6 +4,7 @@ import 'package:hamilton1/controllers/user/user_controller.dart';
 import 'package:hamilton1/core/strings.dart';
 import 'package:hamilton1/core/theme/app_color.dart';
 import 'package:hamilton1/screens/album/album_screen.dart';
+import 'package:hamilton1/screens/user/edit_user_screen.dart';
 import 'package:hamilton1/utils/validator.dart';
 import 'package:hamilton1/widgets/appBar/appBar.dart';
 import 'package:hamilton1/widgets/container/container_widget.dart';
@@ -66,6 +67,12 @@ class _UserScreenState extends State<UserScreen> {
                 email: user.email ?? "N/A",
                 website: user.website ?? "N/A",
                 showEditIcon: true,
+                onTapEdit: () {
+                  Get.to(() => EditUserScreen(user: user));
+                },
+                onTapDelete: () {
+                  userController.deleteUser(user.id!);
+                },
                 onTap: () {
                   Get.to(() => AlbumScreen(
                         userId: user.id!,

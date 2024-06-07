@@ -34,7 +34,7 @@ class _AlbumScreenState extends State<AlbumScreen> {
         backgroundColor: AppColor.primaryColor,
         backButton: InkWell(
           onTap: () {
-            Get.back();
+            Navigator.pop(context);
           },
           child: const Icon(
             Icons.arrow_back,

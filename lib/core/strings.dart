@@ -16,3 +16,5 @@ const String editUserDetails = "Edit User Details";
 const String enterName = "Enter Name";
 const String enterUserName = "Enter UserName";
 const String enterEmail = "Enter Email";
+const String editUser = "Edit User Data";
+const String update = "Update";

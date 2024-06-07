@@ -33,7 +33,7 @@ class _PhotoScreenState extends State<PhotoScreen> {
         backgroundColor: AppColor.primaryColor,
         backButton: InkWell(
           onTap: () {
-            Get.back();
+            Navigator.pop(context);
           },
           child: const Icon(
             Icons.arrow_back,

@@ -80,11 +80,7 @@ class UserController extends GetxController {
     }
   }
 
-  Future<void> addUser(
-      String name,
-      String userName,
-      String email,
-      ) async {
+  Future<void> addUser(String name, String userName, String email,) async {
     try {
       isLoading.value = true;
 
@@ -130,6 +126,96 @@ class UserController extends GetxController {
             duration: const Duration(seconds: 3),
           );
         }
+      } else {
+        throw Exception("Server error: ${response.statusCode}");
+      }
+    } catch (e) {
+      if (e is DioError) {
+        print("DioError: ${e.response?.statusCode} - ${e.message}");
+      } else {
+        print("Unexpected Error: $e");
+      }
+      Get.snackbar(
+        'Oops!',
+        "Something went wrong. Please try again later.",
+        backgroundColor: AppColor.primaryColor,
+        colorText: AppColor.whiteColor,
+        snackPosition: SnackPosition.BOTTOM,
+        duration: const Duration(seconds: 3),
+      );
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  Future<void> updateUser(int userId, String name, String userName, String email,) async {
+    try {
+      isLoading.value = true;
+
+      var formData = {
+        'name': name,
+        'username': userName,
+        'email': email,
+      };
+
+      String url = '${AppConstant.baseUrl}users/$userId';
+      print("Request URL: $url");
+      print("Request Data: $formData");
+
+      final response = await _dio.put(url, data: formData);
+
+      print("Response data: ${response.data}");
+
+      if (response.statusCode == 200 || response.statusCode == 204) {
+        Get.snackbar(
+          'Success!',
+          'User Updated Successfully',
+          backgroundColor: AppColor.primaryColor,
+          colorText: AppColor.whiteColor,
+          snackPosition: SnackPosition.BOTTOM,
+          duration: const Duration(seconds: 3),
+        );
+      } else {
+        throw Exception("Server error: ${response.statusCode}");
+      }
+    } catch (e) {
+      if (e is DioError) {
+        print("DioError: ${e.response?.statusCode} - ${e.message}");
+      } else {
+        print("Unexpected Error: $e");
+      }
+      Get.snackbar(
+        'Oops!',
+        "Something went wrong. Please try again later.",
+        backgroundColor: AppColor.primaryColor,
+        colorText: AppColor.whiteColor,
+        snackPosition: SnackPosition.BOTTOM,
+        duration: const Duration(seconds: 3),
+      );
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  Future<void> deleteUser(int userId) async {
+    try {
+      isLoading.value = true;
+
+      final response = await _apiService.deleteDataWithForm(
+        '${AppConstant.getUser}/$userId',
+        {}
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 204) {
+        userListModel.removeWhere((user) => user.id == userId);
+        Get.snackbar(
+          'Yehh!',
+          'User Deleted Successfully',
+          backgroundColor: AppColor.primaryColor,
+          colorText: AppColor.whiteColor,
+          snackPosition: SnackPosition.BOTTOM,
+          duration: const Duration(seconds: 3),
+        );
       } else {
         throw Exception("Server error: ${response.statusCode}");
       }
