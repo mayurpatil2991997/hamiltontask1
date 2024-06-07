@@ -95,33 +95,39 @@ class _UserScreenState extends State<UserScreen> {
           title: const Text(addUserDetails),
           content: Form(
             key: userController.formKey,
-            child: Column(
-              children: [
-                CustomTextField(
-                    hintText: enterName,
-                    controller: userController.nameController,
-                    validator: (String? value) =>
-                        Validators.validateText(value!.trim(),enterName),
-                    keyboardType: null),
-                SizedBox(
-                  height: 2.h,
-                ),
-                CustomTextField(
-                    hintText: enterUserName,
-                    controller: userController.userNameController,
-                    validator: (String? value) =>
-                        Validators.validateText(value!.trim(),enterUserName),
-                    keyboardType: null),
-                SizedBox(
-                  height: 2.h,
-                ),
-                CustomTextField(
-                    hintText: enterEmail,
-                    controller: userController.emailController,
-                    validator: (String? value) =>
-                        Validators.validateEmail(value!.trim()),
-                    keyboardType: null),
-              ],
+            child: Container(
+              height: MediaQuery.of(context).size.height * 0.3,
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 2.h,
+                  ),
+                  CustomTextField(
+                      hintText: enterName,
+                      controller: userController.nameController,
+                      validator: (String? value) =>
+                          Validators.validateText(value!.trim(),enterName),
+                      keyboardType: null),
+                  SizedBox(
+                    height: 2.h,
+                  ),
+                  CustomTextField(
+                      hintText: enterUserName,
+                      controller: userController.userNameController,
+                      validator: (String? value) =>
+                          Validators.validateText(value!.trim(),enterUserName),
+                      keyboardType: null),
+                  SizedBox(
+                    height: 2.h,
+                  ),
+                  CustomTextField(
+                      hintText: enterEmail,
+                      controller: userController.emailController,
+                      validator: (String? value) =>
+                          Validators.validateEmail(value!.trim()),
+                      keyboardType: null),
+                ],
+              ),
             ),
           ),
           actions: <Widget>[

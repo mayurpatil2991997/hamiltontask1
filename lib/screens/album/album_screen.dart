@@ -105,16 +105,22 @@ class _AlbumScreenState extends State<AlbumScreen> {
           title: const Text(addAlbumDetails),
           content: Form(
             key: albumController.formKey,
-            child: Column(
-              children: [
-                CustomTextField(
-                    hintText: enterTitle,
-                    controller: albumController.titleController,
-                    validator: (String? value) =>
-                        Validators.validateText(value!.trim(),enterTitle),
-                    keyboardType: null,
-                ),
-              ],
+            child: Container(
+              height: MediaQuery.of(context).size.height * 0.1,
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 2.h,
+                  ),
+                  CustomTextField(
+                      hintText: enterTitle,
+                      controller: albumController.titleController,
+                      validator: (String? value) =>
+                          Validators.validateText(value!.trim(),enterTitle),
+                      keyboardType: null,
+                  ),
+                ],
+              ),
             ),
           ),
           actions: <Widget>[
