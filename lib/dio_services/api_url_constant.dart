@@ -5,4 +5,7 @@ class AppConstant {
   static String getAlbumDataByUserId(int userId) {
     return '${baseUrl}albums?userId=$userId';
   }
+  static String getPhotoDataByAlbumId(int albumId) {
+    return '${baseUrl}photos?albumId=$albumId';
+  }
 }

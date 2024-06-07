@@ -11,3 +11,4 @@ const String websiteText = "Website";
 const String comNameText = "Company Name";
 const String userIdText = "User Id";
 const String albumIdText = "Album Id";
+const String photoIdText = "Photo Id";

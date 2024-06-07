@@ -16,6 +16,8 @@ class ContainerWidget extends StatelessWidget {
   final String? companyName;
   final String? userId;
   final String? albumId;
+  final String? photoId;
+  final String? image;
   final Function()? onTap;
 
   const ContainerWidget({
@@ -28,6 +30,8 @@ class ContainerWidget extends StatelessWidget {
     this.companyName,
     this.userId,
     this.albumId,
+    this.photoId,
+    this.image,
     this.onTap
   });
 
@@ -208,9 +212,27 @@ class ContainerWidget extends StatelessWidget {
                       )
                     ],
                   ) : const SizedBox(),
-                  SizedBox(
+                  photoId != null ? SizedBox(
                     height: 0.5.h,
-                  ),
+                  ) : const SizedBox(),
+                  photoId != null ? Row(
+                    children: [
+                      Text(
+                        "$photoIdText : ",
+                        style: AppTextStyle.medium
+                            .copyWith(color: AppColor.blackColor, fontSize: 16),
+                      ),
+                      Text(
+                        photoId ?? "",
+                        style: AppTextStyle.semiBold.copyWith(
+                            color: AppColor.greyColor.withOpacity(0.9),
+                            fontSize: 16),
+                      )
+                    ],
+                  ) : const SizedBox(),
+                  albumId != null ? SizedBox(
+                    height: 0.5.h,
+                  )  : const SizedBox(),
                   albumId != null ? Row(
                     children: [
                       Text(
@@ -226,6 +248,10 @@ class ContainerWidget extends StatelessWidget {
                       )
                     ],
                   ) : const SizedBox(),
+                  image != null ? SizedBox(
+                    height: 0.5.h,
+                  )  : const SizedBox(),
+                  image != null ? Image.network(image!) : const SizedBox(),
                 ],
               ),
             ),

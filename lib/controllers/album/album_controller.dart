@@ -17,11 +17,9 @@ class AlbumController extends GetxController {
       final url = AppConstant.getAlbumDataByUserId(userId);
 
       final response = await _apiService.getDataWithForm(url,{});
-      print("Album Response Data: ${response.data}");
 
       if (response.data is List) {
         List<dynamic> jsonList = response.data;
-        print("Parsed JSON List: $jsonList");
 
         if (jsonList.isNotEmpty) {
           albumListModel.addAll(jsonList.map((album) => AlbumListModel.fromJson(album)).toList());
@@ -39,7 +37,6 @@ class AlbumController extends GetxController {
         throw Exception("Unexpected response format");
       }
     } catch (e) {
-      print("ErrorListAlbums: $e");
       Get.snackbar(
         'Oops!',
         "Something went wrong. Please try again later.",

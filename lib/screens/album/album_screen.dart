@@ -60,8 +60,9 @@ class _AlbumScreenState extends State<AlbumScreen> {
               return ContainerWidget(
                 title: album.title ?? "N/A",
                 userId: album.userId.toString() ?? "N/A",
+                albumId: album.id.toString() ?? "N/A",
                 onTap: () {
-                  Get.to(() => PhotoScreen());
+                  Get.to(() => PhotoScreen(albumId: album.id!,));
                 },
               );
             },
