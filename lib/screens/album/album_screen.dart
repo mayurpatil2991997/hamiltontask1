@@ -80,6 +80,7 @@ class _AlbumScreenState extends State<AlbumScreen> {
                 userId: album.userId.toString() ?? "N/A",
                 albumId: album.id.toString() ?? "N/A",
                 showEditIcon: true,
+                showDeleteIcon: true,
                 onTap: () {
                   Get.to(() => PhotoScreen(albumId: album.id!,));
                 },

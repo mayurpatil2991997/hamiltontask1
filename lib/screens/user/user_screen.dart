@@ -67,6 +67,7 @@ class _UserScreenState extends State<UserScreen> {
                 email: user.email ?? "N/A",
                 website: user.website ?? "N/A",
                 showEditIcon: true,
+                showDeleteIcon: true,
                 onTapEdit: () {
                   Get.to(() => EditUserScreen(user: user));
                 },

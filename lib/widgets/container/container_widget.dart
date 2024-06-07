@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -18,7 +20,9 @@ class ContainerWidget extends StatelessWidget {
   final String? albumId;
   final String? photoId;
   final String? image;
+  final File? uploadImage;
   final bool? showEditIcon;
+  final bool? showDeleteIcon;
   final Function()? onTap;
   final Function()? onTapEdit;
   final Function()? onTapDelete;
@@ -35,7 +39,9 @@ class ContainerWidget extends StatelessWidget {
       this.albumId,
       this.photoId,
       this.image,
+      this.uploadImage,
       this.showEditIcon = false,
+      this.showDeleteIcon = false,
       this.onTap,
       this.onTapEdit,
       this.onTapDelete,
@@ -318,14 +324,14 @@ class ContainerWidget extends StatelessWidget {
                                 ),
                               )
                             : const SizedBox(),
-                        InkWell(
+                        showDeleteIcon == true ? InkWell(
                           onTap: onTapDelete,
                           child: const Icon(
                             Icons.delete,
                             size: 28,
                             color: AppColor.redColor,
                           ),
-                        ),
+                        ) : const SizedBox(),
                       ],
                     ),
                   )
